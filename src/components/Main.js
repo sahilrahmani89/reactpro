@@ -42,7 +42,11 @@ function Main() {
                         <Link to='/navbar'>Navbar</Link>
                     </div>
                 </div>    
-                
+                <div className='col-lg-6 col-12'> 
+                    <div className='cartlink linksmain'>
+                        <Link to='/cart'>Cart</Link>
+                    </div>
+                </div>
             </div>
         </div>
     )

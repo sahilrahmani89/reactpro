@@ -409,3 +409,76 @@ padding: 8px 15px 8px 15px;
   margin-top:20px;
 }
 /* main component end */
+/* cart  */
+.head{
+  padding: 20px;
+  align-items: center;
+  vertical-align: middle;
+  background-color: #0d6efd;
+}
+.cartnavLogo h3{
+  margin-bottom: 0;
+}
+.relative{
+  position: relative;
+}
+.numOfBas{
+  position: absolute;
+  top:0;
+  right: 0;
+  z-index: 1;
+  color:#fff;
+  text-align: center;
+  justify-content: center;
+}
+/* .numOfBas::before{
+  content: '';
+  width: 20px;
+  height: 20px;
+  z-index: -1;
+  background-color: #c0c0c0;
+} */
+.white{
+  color: #fff;
+}
+
+.white-bg{
+  background-color: #fff;
+}
+.basket{
+  background:none;
+  border: none;
+  font-size: 24px;
+}
+.cartEmpty{
+  font-weight: bold;
+  color:#d269e1;
+  justify-content:center;
+  text-align: center;
+}
+.cartImg{
+  width:100px;
+  height: 100px;
+  margin-right: 10px;
+  border:0;
+  object-fit: cover;
+}
+.vm{
+  vertical-align: middle;
+}
+.nameContent h4{
+  margin-bottom: 0;
+  font-weight: 400;
+  color:#d269e1;
+}
+.noBtn{
+  border:none;
+  background: none;
+  padding: 0;
+}
+.btnFnc .vm{
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+/* cart */

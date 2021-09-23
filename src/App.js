@@ -10,6 +10,7 @@ import Todo from './pages/todo/Todo'
 import PageMain from './pages/pagination/PageMain';
 import ParaMain from './pages/loremipsum/ParaMain'
 import NavApp from './pages/navbar/NavApp'
+import CartApp from './pages/cart/CartApp';
 // 
 function App() {
   return (
@@ -40,6 +41,9 @@ function App() {
               </Route>
               <Route exact path='/navbar'>
                   <NavApp/>
+              </Route>
+              <Route exact path ='/cart'>
+                <CartApp/>
               </Route>
           </Switch>
       </Router>

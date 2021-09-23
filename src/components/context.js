@@ -1,8 +1,12 @@
-import React ,{useState,useEffect,useContext,useCallback} from 'react'
+import React ,{useState,useEffect,useContext,useCallback,useReducer} from 'react'
 import AccordData from '../pages/accordion/AccordData'
 import {FoodData} from '../pages/foodmenu/FoodData'
 import ParaData from '../pages/loremipsum/ParaData'
 import {navdata} from '../pages/navbar/navdata'
+import reducer from './reducer'
+
+// 
+const cartUrl = 'https://my-json-server.typicode.com/sahilrahmani89/cartapi/db'
 // 
 const AppContext = React.createContext()
 // 
@@ -16,6 +20,13 @@ const todogetLocalStorage =()=>{
     else{
         return []
     }
+}
+// 
+const initialState ={
+    loading: false,
+    cartPost: [],
+    cartTotal: 0, //total product price
+    cartQuantity: 0, // num of cart added
 }
 // 
 const AppProvider = ({children}) =>{
@@ -41,6 +52,7 @@ const AppProvider = ({children}) =>{
     const [navLocation, setnavLocation] = useState({}) //navbar
     const [navpage, setnavpage] = useState({ page: '', links: [] }); //navbar
     const [navcol,setnavcol] =useState(6) //navbar
+    const [state,dispatch] = useReducer(reducer,initialState) //reducer hooks cart
     // fetch tour 
     const fetchTour = useCallback( async()=>{
         settourload(true)
@@ -155,10 +167,6 @@ const AppProvider = ({children}) =>{
         e.preventDefault()
         setpagCurrPage(item)
     }
-    // 
-    useEffect(() => {
-        localStorage.setItem('list',JSON.stringify(todoList))
-    }, [todoList])
     // loremeventhandler
         const loremeventHandler =(e)=>{
             e.preventDefault()
@@ -210,9 +218,50 @@ const AppProvider = ({children}) =>{
         setnavHovDisp(true)
     }
     // navshowcontent navbar end
+    // cart fetch data
+    const fetchCart =useCallback(async()=>{
+        dispatch({type:'LOADING'})
+        try{
+            const response = await fetch(cartUrl)
+            const data = await response.json()
+            const postData = data.cartItem
+            dispatch({type:'DISPLAY_CART',load:postData})
+        }
+        catch(error){
+            console.log(error)
+            dispatch({type:'LOADFALSE'})
+        }
+    },[])
+    // cart fetch data end
+    // clear car
+    const clearCart=()=>{
+        dispatch({type:'CLEAR_CART'})
+    }
+    // clear cart end
+    // cart toggle amount
+    const cartToggleAmount =(id, type)=>{
+            dispatch({type:'TOGGLE_AMOUNT',load:{id,type}})
+    }
+    // cart toggle amount end
+    // cart remove
+    const cartRemove =(id)=>{
+        dispatch({type:'REMOVE_CART',load:id})
+    }
+    // cart remove end
+    // 
+    useEffect(() => {
+        localStorage.setItem('list',JSON.stringify(todoList))
+        fetchCart()
+       
+    }, [todoList,fetchCart])
+    // 
+    useEffect(()=>{
+        dispatch({type:'CART_QUANTITY'})
+    },[state.cartPost])
     return(
         <AppContext.Provider
          value={{
+            ...state,
             accordList,
             tour,
             tourload,
@@ -244,13 +293,16 @@ const AppProvider = ({children}) =>{
             navData,
             openSidebar,
             navHandlesubMenu,
-            isSidebarOpen,
+            isSidebarOpen, 
             closeSider,
             navHovDisp,
             navLocation,
             navdispSub,
             navpage,
             navcol,
+            cartRemove,
+            cartToggleAmount,
+            clearCart,
         }}>
             {children}
         </AppContext.Provider>
