@@ -111,7 +111,11 @@ ul li{
     
 }
   
+<<<<<<< HEAD
 .btnStyle1{
+=======
+ .btnStyle1{
+>>>>>>> 6f1035aa4b9527fa25a78993a5128e8d951b5dbe
     margin-left: auto;
     background-color: transparent;
     border:none;
@@ -480,6 +484,7 @@ padding: 8px 15px 8px 15px;
   text-align: center;
 }
 /* cart */
+<<<<<<< HEAD
 /* cocktails */
 .img-container img{
   width:300px;
@@ -625,3 +630,5 @@ box-shadow: none;
   border:1px solid #e5e5e5;
 }
 /* quiz */
+=======
+>>>>>>> 6f1035aa4b9527fa25a78993a5128e8d951b5dbe
