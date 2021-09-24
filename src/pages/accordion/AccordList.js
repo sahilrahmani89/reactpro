@@ -7,7 +7,7 @@ function AccordList({accordlist,accordIndex}) {
     return (
         <React.Fragment key ={accordIndex}>
            <div className='accordTitle' key={id}><h6 className='text-primary mb-0'>{title}</h6>
-                   <button onClick={()=>setpassage(!passage)} className='btnStyle'>
+                   <button onClick={()=>setpassage(!passage)} className='btnStyle1'>
                        {
                       passage?<AiOutlineMinus/>:<AiOutlinePlus/>
                        }

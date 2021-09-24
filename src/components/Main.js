@@ -47,6 +47,16 @@ function Main() {
                         <Link to='/cart'>Cart</Link>
                     </div>
                 </div>
+                <div className='col-lg-6 col-12'> 
+                    <div className='cocktailslink linksmain'>
+                        <Link to='/cocktails'>Cocktails</Link>
+                    </div>
+                </div>
+                <div className='col-lg-6 col-12'> 
+                    <div className='quizlink linksmain'>
+                        <Link to='/quiz'>Quiz</Link>
+                    </div>
+                </div>
             </div>
         </div>
     )

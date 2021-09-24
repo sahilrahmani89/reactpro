@@ -11,6 +11,11 @@ import PageMain from './pages/pagination/PageMain';
 import ParaMain from './pages/loremipsum/ParaMain'
 import NavApp from './pages/navbar/NavApp'
 import CartApp from './pages/cart/CartApp';
+import CockAbout from './pages/cocktails/CockAbout'
+import TailIdComp from './pages/cocktails/TailIdComp';
+import CockMain from './pages/cocktails/CockMain';
+import Error from './components/Error'
+import QuizApp from './pages/quiz/QuizApp';
 // 
 function App() {
   return (
@@ -44,6 +49,21 @@ function App() {
               </Route>
               <Route exact path ='/cart'>
                 <CartApp/>
+              </Route>
+              <Route exact path ='/cocktails'>
+                <CockMain/>
+              </Route>
+              <Route exact path ='/cocktails/about'>
+                  <CockAbout/>
+              </Route>
+              <Route exact path ='/cocktails/:id'>
+                 <TailIdComp/>
+              </Route>
+              <Route exact path ='/quiz'>
+                  <QuizApp/>
+              </Route>
+              <Route path='*'>
+                <Error/>
               </Route>
           </Switch>
       </Router>

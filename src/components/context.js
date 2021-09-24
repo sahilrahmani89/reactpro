@@ -4,6 +4,7 @@ import {FoodData} from '../pages/foodmenu/FoodData'
 import ParaData from '../pages/loremipsum/ParaData'
 import {navdata} from '../pages/navbar/navdata'
 import reducer from './reducer'
+import {quizData} from '../pages/quiz/quizData'
 
 // 
 const cartUrl = 'https://my-json-server.typicode.com/sahilrahmani89/cartapi/db'
@@ -11,6 +12,10 @@ const cartUrl = 'https://my-json-server.typicode.com/sahilrahmani89/cartapi/db'
 const AppContext = React.createContext()
 // 
 const AllCategory = ['All',...new Set(FoodData.map((item)=>item.category))]
+// 
+let ansVar ;
+// 
+const ctUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 // 
 const todogetLocalStorage =()=>{
     let list =localStorage.getItem('list')
@@ -29,7 +34,9 @@ const initialState ={
     cartQuantity: 0, // num of cart added
 }
 // 
+// 
 const AppProvider = ({children}) =>{
+    const searchValue = React.useRef('')
     const [accordList, setaccordList] = useState(AccordData) //accordion 
     const [tourload, settourload] = useState(false) //tourloading state
     const [tour, settour] = useState([]) //tour array
@@ -53,6 +60,19 @@ const AppProvider = ({children}) =>{
     const [navpage, setnavpage] = useState({ page: '', links: [] }); //navbar
     const [navcol,setnavcol] =useState(6) //navbar
     const [state,dispatch] = useReducer(reducer,initialState) //reducer hooks cart
+    const [searchTailsForm, setsearchTailsForm] = useState('a') // cocktails form search state
+    const [cockTailLoad, setcockTailLoad] = useState(false) //cocktails load bool
+    const [cockTailPost, setcockTailPost] = useState([]) // cocktails post 
+    const [quizName,setquizName] = useState('') //quiz
+    const [quizFormCon,setquizFormCon] = useState(true) //quiz boolean
+    const [questions, setquestions] = useState(quizData) // quiz data state management
+    const [showQuestion, setshowQuestion] = useState(false) //show question
+    const [questionIndex,setquestionIndex] = useState(0) //question index
+    const [score, setscore] = useState(0) //score
+    const [quizResult,setquizResult] = useState(false)
+    // 
+    const emptyField = React.useRef()
+    const quizInputref = React.useRef()
     // fetch tour 
     const fetchTour = useCallback( async()=>{
         settourload(true)
@@ -84,6 +104,51 @@ const AppProvider = ({children}) =>{
              }
     },[])
     // fetchPaginate end
+    // fetchCockTailData
+        const fetchCockTailData = useCallback(
+            async() => {
+                setcockTailLoad(true)
+                try{
+                    const response = await fetch(`${ctUrl}${searchTailsForm}`) 
+                    const data = await response.json()
+                    let {drinks} = data
+                    if(drinks){
+                        const newDrinks = drinks.map((item)=>{
+                            const{
+                                idDrink,
+                                strDrink,
+                                strDrinkThumb,
+                                strAlcoholic,
+                                strGlass,
+                             }= item
+                             return(
+                            {
+                                id: idDrink,
+                                name: strDrink,
+                                image: strDrinkThumb,
+                                info: strAlcoholic,
+                                glass: strGlass,
+                            }
+                            )
+                        })
+                        setcockTailPost(newDrinks)
+                        setcockTailLoad(false)
+                    }
+                    else{
+                        setcockTailPost([])
+                    }
+                    
+                }
+                catch(error){
+                    console.log(error)
+                    setcockTailLoad(false)
+                }
+            },
+            [searchTailsForm],
+        )
+    // fetchCockTail Data
+    
+    
     // filter foodmenu
     const filterFoodMenu =(e,item,index) =>{
         e.preventDefault()
@@ -248,12 +313,69 @@ const AppProvider = ({children}) =>{
         dispatch({type:'REMOVE_CART',load:id})
     }
     // cart remove end
+    // cocktails  form handler
+    const tailHandler = (e) =>{
+        e.preventDefault()
+    }
+    // cocktails form handler end
+    // search cocktail onchange
+    const searchCocktail =()=>{
+        setsearchTailsForm(searchValue.current.value)
+    }
+    // search cocktail onchange
+    // quiz form handler
+    const quizFormHandler=(e)=>{
+        e.preventDefault()
+        if(!quizName){
+            todoShowAlert(
+                true,
+                'Fill Your Name',
+                'danger'
+            )
+        }
+        else{
+            setquizFormCon(false)
+            setquizName(quizName)
+            setshowQuestion(true)
+            emptyField.current.value =''
+        }
+    }
+    // quiz form handler end
+    // get checked value
+    const quizGetValue =(e)=>{
+        ansVar=e.currentTarget.id
+        return ansVar
+    }
+    // get check value end
+    // input focus 
+    const inputFocus =()=>{
+        quizInputref.current.focus()
+    }
+    // input focus 
+    // input blur 
+    const inputBlur =()=>{
+        quizInputref.current.blur()
+    }
+    // input blur
+    // chechquiz Ans
+    const checkQuizAns =(e)=>{
+        e.preventDefault()
+        setquestionIndex(inc=>inc+1)
+        if(ansVar===questions[questionIndex].ans){
+            setscore(inc=>inc+1)
+        }
+        if(questionIndex===questions.length-1){
+            setshowQuestion(false)
+            setquizResult(true) 
+         }
+    }
+    // chechquiz Ans end
     // 
     useEffect(() => {
         localStorage.setItem('list',JSON.stringify(todoList))
         fetchCart()
-       
-    }, [todoList,fetchCart])
+        fetchCockTailData()
+    }, [todoList,fetchCart,fetchCockTailData])
     // 
     useEffect(()=>{
         dispatch({type:'CART_QUANTITY'})
@@ -303,6 +425,24 @@ const AppProvider = ({children}) =>{
             cartRemove,
             cartToggleAmount,
             clearCart,
+            tailHandler,
+            searchCocktail,
+            searchValue,
+            cockTailPost,
+            cockTailLoad,
+            quizFormCon,
+            setquizName,
+            quizName,
+            quizFormHandler,
+            showQuestion,
+            questions,
+            questionIndex,
+            checkQuizAns,
+            quizGetValue,
+            quizInputref,
+            quizResult,
+            emptyField,
+            score,
         }}>
             {children}
         </AppContext.Provider>

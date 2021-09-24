@@ -21,6 +21,7 @@ ul li{
   margin-left: 10px;
   transition: 0.5s ease;
   padding: 10px;
+  margin-bottom: 0;
 }
 /* loader animation */
 @keyframes time {
@@ -61,10 +62,9 @@ ul li{
 	top:50%;
 	left:50%;
 	border-radius:50%;
-	margin-top:-50px;
-	margin-left:-50px;
 	box-shadow:-2px 2px 10px 0 rgba(0,0,0,0.5),
 						 2px -2px 10px 0 rgba(255,255,255,0.5);
+  transform:translate(-50%,-50%)
 }
 
 .loader {
@@ -111,7 +111,7 @@ ul li{
     
 }
   
- .btnStyle{
+.btnStyle1{
     margin-left: auto;
     background-color: transparent;
     border:none;
@@ -132,7 +132,7 @@ ul li{
     width: auto;
   }
   .imgofart img{
-    max-width: 100%;
+    width: 100%;
     height:300px;
   }
   .imgofart{
@@ -321,9 +321,7 @@ a{
 .bg-nav .navUl{
   margin-bottom: 0;
 } 
-.ml-auto{
-  margin-left: auto;
-}
+
 .hoverMain:before{
   content: '';
   display: block;
@@ -482,3 +480,148 @@ padding: 8px 15px 8px 15px;
   text-align: center;
 }
 /* cart */
+/* cocktails */
+.img-container img{
+  width:300px;
+  height: auto;
+}
+.nav-links{
+  margin-bottom: 0!important;
+}
+.nav-links li{
+  display: inline-block;
+  color: #fff;
+  font-weight: 700;
+  margin-right: 20px;
+}
+.navBar{
+  background-color: #a52a2a;
+  padding: 15px 0;
+  align-items: center;
+}
+.navBar .ml-auto .nav-link{
+  margin-bottom: 0;
+}
+.cocktail-footer{
+  vertical-align: middle;
+  background-color: #E5E5E5;
+  width: 100%;
+}
+.cocktail-footer-style{
+  padding: 15px 0 0 15px;
+  margin: 50px 0 0 15px;
+}
+.cocktail-section img{
+  width: 100%;
+}
+.cocktail-section{
+  padding: 20px;
+  margin-top: 50px;
+}
+.drink-info{
+  background-color: #E5E5E5;
+}
+.drink-info-style{
+  padding:15px 8px;
+  color: #0d6efd;
+  text-align: left;
+}
+.drink-data{
+  font-weight: 400;
+  font-size: 20px;
+}
+.cocklist{
+  border-radius :5px;
+  border:1px solid #eee;
+}
+
+/* --- */
+/* quiz */
+.btn-main{
+  padding: 0.5em 1.5em;
+  border-radius:0;
+  background-color: #2f6690;
+  text-align: center;
+  z-index: 1;
+  color: #fff;
+  text-decoration: none;
+}
+.right{
+  float: right;
+}
+
+label.radio {
+  cursor: pointer
+}
+.ans label{
+    width: -webkit-fill-available;
+}
+
+label.radio input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  pointer-events: none
+}
+
+label.radio span {
+  padding: 4px 4px;
+  border: 1px solid #81c5d9;;
+  display: inline-block;
+  color: #000;
+  width: 100%;
+  text-align:left;
+  border-radius: 3px;
+  text-transform: uppercase;
+  margin-top:6px;
+}
+
+label.radio input:checked+span {
+  border-color: #81c5d9;
+  background-color: #cfebff;
+  color: #000;
+}
+label.radio input:focus,label.radio input:active{
+  background-color: #cfebff;
+  padding: 5px 7px;
+  border: 2px solid #81c5d9;
+  border-radius: 5px;
+  font-weight: bold;
+}
+label.radio input:hover+span{
+border-color: #81c5d9;
+background-color: #cfebff;
+color: #000;
+}
+.ans .option{
+font-size: 22px;
+margin-right: 10px;
+font-weight: bold;
+color: #fff;
+text-align: center;
+background-color: #2f6690;
+width:40px;
+height: 40px;
+line-height: 40px;
+border-radius: 50%;
+position: relative;
+}
+.question{
+padding: 70px;
+background-color: #e8d3d3;
+}
+.next:focus{
+box-shadow: none;
+}
+.quizResultStyle{
+  padding:20px;
+  text-align: center;
+  vertical-align: middle;
+}
+.quizResult{
+  background-color: #e5e5e5;
+  border:5px;
+  border:1px solid #e5e5e5;
+}
+/* quiz */
