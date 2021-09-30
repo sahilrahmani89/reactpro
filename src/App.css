@@ -111,11 +111,8 @@ ul li{
     
 }
   
-<<<<<<< HEAD
-.btnStyle1{
-=======
+
  .btnStyle1{
->>>>>>> 6f1035aa4b9527fa25a78993a5128e8d951b5dbe
     margin-left: auto;
     background-color: transparent;
     border:none;
@@ -484,7 +481,7 @@ padding: 8px 15px 8px 15px;
   text-align: center;
 }
 /* cart */
-<<<<<<< HEAD
+
 /* cocktails */
 .img-container img{
   width:300px;
@@ -630,5 +627,27 @@ box-shadow: none;
   border:1px solid #e5e5e5;
 }
 /* quiz */
-=======
->>>>>>> 6f1035aa4b9527fa25a78993a5128e8d951b5dbe
+/* weather app */
+.weatherul .weatherli p{
+  margin-bottom: 0;
+}
+.mt-40{
+  margin-top: 40px;
+}
+.weatherul{
+  padding-left:0;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.wead-widget{
+  padding: 20px;
+  border:1px solid #eee;
+  border-radius:8px;
+  background-color: #cfebff;
+  box-shadow:-2px 2px 10px 0 rgba(231, 223, 223, 0.5),
+  2px -2px 10px 0 rgba(233, 225, 225, 0.5);
+}
+.fs-14{
+  font-size: 14px;
+}
+/* wetaher app */

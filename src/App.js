@@ -16,6 +16,7 @@ import TailIdComp from './pages/cocktails/TailIdComp';
 import CockMain from './pages/cocktails/CockMain';
 import Error from './components/Error'
 import QuizApp from './pages/quiz/QuizApp';
+import Weather from './pages/weatherapp/Weather';
 // 
 function App() {
   return (
@@ -61,6 +62,9 @@ function App() {
               </Route>
               <Route exact path ='/quiz'>
                   <QuizApp/>
+              </Route>
+              <Route exact path='/weather'>
+                <Weather/>
               </Route>
               <Route path='*'>
                 <Error/>

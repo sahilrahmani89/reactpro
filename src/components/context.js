@@ -5,7 +5,8 @@ import ParaData from '../pages/loremipsum/ParaData'
 import {navdata} from '../pages/navbar/navdata'
 import reducer from './reducer'
 import {quizData} from '../pages/quiz/quizData'
-
+// 
+const weatherUrlBase = "http://api.openweathermap.org/data/2.5/"
 // 
 const cartUrl = 'https://my-json-server.typicode.com/sahilrahmani89/cartapi/db'
 // 
@@ -37,6 +38,7 @@ const initialState ={
 // 
 const AppProvider = ({children}) =>{
     const searchValue = React.useRef('')
+    const searchCityValue = React.useRef('')
     const [accordList, setaccordList] = useState(AccordData) //accordion 
     const [tourload, settourload] = useState(false) //tourloading state
     const [tour, settour] = useState([]) //tour array
@@ -69,7 +71,14 @@ const AppProvider = ({children}) =>{
     const [showQuestion, setshowQuestion] = useState(false) //show question
     const [questionIndex,setquestionIndex] = useState(0) //question index
     const [score, setscore] = useState(0) //score
-    const [quizResult,setquizResult] = useState(false)
+    const [quizResult,setquizResult] = useState(false) //quizresult
+    const [CityName, setCityName] = useState('') //weather search city
+    const [weatherLoad,setweatherLoad] = useState(false) //weather loading boolean
+    const[weatherData,setweatherData] = useState([]) //weather data
+    const [delhiWeatherData,setdelhiWeatherData] = useState([])  //delhi weather
+    const [mumbaiWeatherData,setmumbaiWeatherData] = useState([]) //mumbai weather
+    const [chennaiWeatherData,setchennaiWeatherData] = useState([]) //chennai weather
+    const [hydrabadWeatherData,sethydrabadWeatherData] = useState([]) //hydrabad weather
     // 
     const emptyField = React.useRef()
     const quizInputref = React.useRef()
@@ -147,8 +156,97 @@ const AppProvider = ({children}) =>{
             [searchTailsForm],
         )
     // fetchCockTail Data
-    
-    
+    // fetchCityWeather4
+    const fetchCityWeather = useCallback(
+        async() => {
+            setweatherLoad(true)
+            try{
+                const response = await fetch(`${weatherUrlBase}weather?q=${CityName}&appid=ad813cda902e28c2d40efb625a64e959`)
+                const data = await response.json()
+                setweatherData(data)
+                setweatherLoad(false)
+            }
+            catch(error){
+                console.log(error)
+                setweatherLoad(false)
+            }
+        },
+        [CityName],
+    )
+    // fetchCityWeather
+    const fetchDelhiWeather = useCallback(
+      
+        async() => {
+            setweatherLoad(true)
+            try{
+                const response = await fetch(`${weatherUrlBase}weather?q=Delhi&appid=ad813cda902e28c2d40efb625a64e959`)
+                const data = await response.json()
+                setdelhiWeatherData(data)
+                setweatherLoad(false)
+            }
+            catch(error){
+                console.log(error)
+                setweatherLoad(false)
+            }
+        },
+        [],
+    )
+    // fetchMumbaiWeather
+    const fetchMumbaiWeather = useCallback(
+       
+        async() => {
+            setweatherLoad(true)
+            try{
+                const response = await fetch(`${weatherUrlBase}weather?q=Mumbai&appid=ad813cda902e28c2d40efb625a64e959`)
+                const data = await response.json()
+                setmumbaiWeatherData(data)
+                setweatherLoad(false)
+            }
+            catch(error){
+                console.log(error)
+                setweatherLoad(false)
+            }
+        },
+        [],
+    )
+    // fetchMumbaiWeather
+    // chennaiweather
+    const fetchChennaiWeather = useCallback(
+        async() => {
+            setweatherLoad(true)
+            try{
+                
+                const response = await fetch(`${weatherUrlBase}weather?q=Chennai&appid=ad813cda902e28c2d40efb625a64e959`)
+                const data = await response.json()
+                setchennaiWeatherData(data)
+                setweatherLoad(false)
+            }
+            catch(error){
+                console.log(error)
+                setweatherLoad(false)
+            }
+        },
+        [],
+    )
+    // chennaiweather
+    // hydrabad weather
+    const fetchHydrabadWeather = useCallback(
+        async() => {
+            setweatherLoad(true)
+            try{
+                const response = await fetch(`${weatherUrlBase}weather?q=Hyderabad&appid=ad813cda902e28c2d40efb625a64e959`)
+                const data = await response.json()
+                sethydrabadWeatherData(data)
+                setweatherLoad(false)
+            }
+            catch(error){
+                console.log(error)
+                setweatherLoad(false)
+            }
+        },
+        [],
+    )
+    // hydrabad weather
     // filter foodmenu
     const filterFoodMenu =(e,item,index) =>{
         e.preventDefault()
@@ -348,14 +446,14 @@ const AppProvider = ({children}) =>{
     }
     // get check value end
     // input focus 
-    const inputFocus =()=>{
-        quizInputref.current.focus()
-    }
+    // const inputFocus =()=>{
+    //     quizInputref.current.focus()
+    // }
     // input focus 
     // input blur 
-    const inputBlur =()=>{
-        quizInputref.current.blur()
-    }
+    // const inputBlur =()=>{
+    //     quizInputref.current.blur()
+    // }
     // input blur
     // chechquiz Ans
     const checkQuizAns =(e)=>{
@@ -369,13 +467,43 @@ const AppProvider = ({children}) =>{
             setquizResult(true) 
          }
     }
+    // 
+    // coverintodecimal
+    const convertIndegree =(temp) =>{
+        let a= temp - 273.15
+        return a.toFixed(2);
+    }
     // chechquiz Ans end
+    // weather handler
+    const weatherHandler =(e)=>{
+        e.preventDefault()
+        if(!CityName){
+            todoShowAlert(
+                true,
+                'Input City Name',
+                'danger'
+            )
+        }
+        else{
+        setCityName(CityName)
+        fetchCityWeather()
+        searchCityValue.current.value=''
+        }
+    }
+    // weather handler
     // 
     useEffect(() => {
         localStorage.setItem('list',JSON.stringify(todoList))
         fetchCart()
         fetchCockTailData()
-    }, [todoList,fetchCart,fetchCockTailData])
+        fetchDelhiWeather()
+        fetchMumbaiWeather()
+        fetchChennaiWeather()
+        fetchHydrabadWeather()
+    }, [todoList,fetchCart,fetchCockTailData, fetchDelhiWeather,
+        fetchMumbaiWeather,
+        fetchChennaiWeather,
+        fetchHydrabadWeather])
     // 
     useEffect(()=>{
         dispatch({type:'CART_QUANTITY'})
@@ -443,6 +571,17 @@ const AppProvider = ({children}) =>{
             quizResult,
             emptyField,
             score,
+            weatherHandler,
+            searchCityValue,
+            setCityName,
+            weatherData,
+            delhiWeatherData,
+            mumbaiWeatherData,
+            chennaiWeatherData,
+            hydrabadWeatherData,
+            convertIndegree,
+            weatherLoad,
+            CityName,
         }}>
             {children}
         </AppContext.Provider>

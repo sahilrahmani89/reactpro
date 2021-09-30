@@ -57,6 +57,11 @@ function Main() {
                         <Link to='/quiz'>Quiz</Link>
                     </div>
                 </div>
+                <div className='col-lg-6 col-12'> 
+                    <div className='weatherlinks linksmain'>
+                        <Link to='/weather'>Weather</Link>
+                    </div>
+                </div>
             </div>
         </div>
     )
