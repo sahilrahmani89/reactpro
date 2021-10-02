@@ -2,10 +2,6 @@ import React from 'react'
 import '../../App.css'
 import {useGlobalContext} from '../../components/context'
 import WeatherForm from './WeatherForm'
-import DelhiWeather from './DelhiWeather'
-import MumbaiWeather from './MumbaiWeather'
-import HydrabadWeather from './HydrabadWeather'
-import ChennaiWeather from './ChennaiWeather'
 import Loader from '../../components/Loader'
 import {Link} from 'react-router-dom'
 import WeadherWidget  from './WeadherWidget'
@@ -16,7 +12,11 @@ let scene ='' ;
 function Weather() {
     const {weatherData,
         weatherLoad,
-        todoalert
+        todoalert,
+        delhiWeatherData,
+        mumbaiWeatherData,
+        hydrabadWeatherData,
+        chennaiWeatherData,
     } = useGlobalContext() || {}
     const {main,name,weather} = weatherData 
     const {temp,feels_like} = main||{}
@@ -54,16 +54,98 @@ function Weather() {
                         </div>
                     <div className='row my-3'>
                         <div className='col-lg-6 col-md-6 col-12'>
-                             <DelhiWeather/>   
+                            {
+                                delhiWeatherData? delhiWeatherData.map((item,index)=>{
+                                    const {main,name,weather} = item || {}
+                                    const {temp,feels_like} = main||{}
+                                    let scene
+                                    if(weather){
+                                         scene = weather.map((item)=>{
+                                         return(item.description)
+                                     })
+                                    }
+                                    
+                                    return(
+                                            <WeadherWidget key={index} name={name}
+                                            temp={temp}
+                                            feels_like={feels_like}
+                                            description={scene}
+
+                                            /> 
+                                    )
+                                }):''
+                            }
+                            
                         </div>
                         <div className='col-lg-6 col-md-6 col-12'>
-                                <MumbaiWeather/>
+                        {
+                                mumbaiWeatherData? mumbaiWeatherData.map((item,index)=>{
+                                    const {main,name,weather} = item || {}
+                                    const {temp,feels_like} = main||{}
+                                    let scene
+                                    if(weather){
+                                         scene = weather.map((item)=>{
+                                         return(item.description)
+                                     })
+                                    }
+                                    
+                                    return(
+                                            <WeadherWidget key={index} name={name}
+                                            temp={temp}
+                                            feels_like={feels_like}
+                                            description={scene}
+
+                                            /> 
+                                    )
+                                }):''
+                            }
+                            
                         </div>
                         <div className='col-lg-6 col-md-6 col-12'>
-                                <HydrabadWeather/>
+                        {
+                                hydrabadWeatherData? hydrabadWeatherData.map((item,index)=>{
+                                    const {main,name,weather} = item || {}
+                                    const {temp,feels_like} = main||{}
+                                    let scene
+                                    if(weather){
+                                         scene = weather.map((item)=>{
+                                         return(item.description)
+                                     })
+                                    }
+                                    
+                                    return(
+                                            <WeadherWidget key={index} name={name}
+                                            temp={temp}
+                                            feels_like={feels_like}
+                                            description={scene}
+
+                                            /> 
+                                    )
+                                }):''
+                            }
                         </div>
                         <div className='col-lg-6 col-md-6 col-12'>
-                                <ChennaiWeather/>
+                        {
+                               chennaiWeatherData? chennaiWeatherData.map((item,index)=>{
+                                    const {main,name,weather} = item || {}
+                                    const {temp,feels_like} = main||{}
+                                    let scene
+                                    if(weather){
+                                         scene = weather.map((item)=>{
+                                         return(item.description)
+                                     })
+                                    }
+                                    
+                                    return(
+                                            <WeadherWidget key={index} name={name}
+                                            temp={temp}
+                                            feels_like={feels_like}
+                                            description={scene}
+
+                                            /> 
+                                    )
+                                }):''
+                            }
                         </div>
                      </div>
                     </div>

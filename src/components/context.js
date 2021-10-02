@@ -120,6 +120,7 @@ const AppProvider = ({children}) =>{
                 try{
                     const response = await fetch(`${ctUrl}${searchTailsForm}`) 
                     const data = await response.json()
+                    
                     let {drinks} = data
                     if(drinks){
                         const newDrinks = drinks.map((item)=>{
@@ -181,7 +182,7 @@ const AppProvider = ({children}) =>{
             try{
                 const response = await fetch(`${weatherUrlBase}weather?q=Delhi&appid=ad813cda902e28c2d40efb625a64e959`)
                 const data = await response.json()
-                setdelhiWeatherData(data)
+                setdelhiWeatherData([data])
                 setweatherLoad(false)
             }
             catch(error){
@@ -199,7 +200,7 @@ const AppProvider = ({children}) =>{
             try{
                 const response = await fetch(`${weatherUrlBase}weather?q=Mumbai&appid=ad813cda902e28c2d40efb625a64e959`)
                 const data = await response.json()
-                setmumbaiWeatherData(data)
+                setmumbaiWeatherData([data])
                 setweatherLoad(false)
             }
             catch(error){
@@ -218,7 +219,7 @@ const AppProvider = ({children}) =>{
                 
                 const response = await fetch(`${weatherUrlBase}weather?q=Chennai&appid=ad813cda902e28c2d40efb625a64e959`)
                 const data = await response.json()
-                setchennaiWeatherData(data)
+                setchennaiWeatherData([data])
                 setweatherLoad(false)
             }
             catch(error){
@@ -236,7 +237,7 @@ const AppProvider = ({children}) =>{
             try{
                 const response = await fetch(`${weatherUrlBase}weather?q=Hyderabad&appid=ad813cda902e28c2d40efb625a64e959`)
                 const data = await response.json()
-                sethydrabadWeatherData(data)
+                sethydrabadWeatherData([data])
                 setweatherLoad(false)
             }
             catch(error){
